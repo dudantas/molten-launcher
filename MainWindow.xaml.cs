@@ -22,7 +22,6 @@ namespace CanaryLauncherUpdate
 		bool clientDownloaded = false;
 		bool needUpdate = false;
 		string clientName = "molten.exe";
-		string clientFolder = "Molten";
 		string urlClient = "https://github.com/gccris/molten_client/releases/download/molten/molten.zip";
 		string urlVersion = "https://github.com/gccris/molten_client/releases/download/molten/version.txt";
 		string currentVersion = "";
@@ -47,14 +46,14 @@ namespace CanaryLauncherUpdate
 			{
 				Directory.CreateDirectory(path);
 			}
-			if (Directory.Exists(path + "/" + clientFolder))
+			if (Directory.Exists(path + "/Molten"))
 			{
 				clientDownloaded = true;
 			}
 
-			if (File.Exists(path + "/" + clientFolder + "/version.txt"))
+			if (File.Exists(path + "/Molten/version.txt"))
 			{
-				StreamReader reader = new StreamReader(path + "/" + clientFolder + "/version.txt");
+				StreamReader reader = new StreamReader(path + "/Molten/version.txt");
 				string? myVersion = reader.ReadLine();
 				reader.Close();
 
@@ -81,7 +80,7 @@ namespace CanaryLauncherUpdate
 					needUpdate = true;
 				}
 			}
-			if (!File.Exists(path + "/" + clientFolder + "/version.txt"))
+			if (!File.Exists(path + "/Molten/version.txt"))
 			{
 				labelVersion.Text = "v" + currentVersion;
 				buttonPlay.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), "Assets/button_update.png")));
@@ -96,7 +95,7 @@ namespace CanaryLauncherUpdate
 
 		static string GetClientVersion(string path)
 		{
-			string json = path + "/" + clientFolder + "/package.json";
+			string json = path + "/Molten/package.json";
 			StreamReader stream = new StreamReader(json);
 			dynamic jsonString = stream.ReadToEnd();
 			dynamic versionclient = JsonConvert.DeserializeObject(jsonString);
@@ -130,7 +129,7 @@ namespace CanaryLauncherUpdate
 			{
 				if (clientDownloaded == true)
 				{
-					Process.Start(path + "/" + clientFolder + "/bin/" + clientName);
+					Process.Start(path + "/Molten/bin/" + clientName);
 					this.Close();
 				}
 				else
@@ -200,9 +199,9 @@ namespace CanaryLauncherUpdate
 
 		private void buttonPlay_MouseEnter(object sender, MouseEventArgs e)
 		{
-			if (File.Exists(path + "/" + clientFolder + "/version.txt"))
+			if (File.Exists(path + "/Molten/version.txt"))
 			{
-				StreamReader reader = new StreamReader(path + "/" + clientFolder + "/version.txt");
+				StreamReader reader = new StreamReader(path + "/Molten/version.txt");
 				string? myVersion = reader.ReadLine();
 				reader.Close();
 
@@ -223,9 +222,9 @@ namespace CanaryLauncherUpdate
 
 		private void buttonPlay_MouseLeave(object sender, MouseEventArgs e)
 		{
-			if (File.Exists(path + "/" + clientFolder + "/version.txt"))
+			if (File.Exists(path + "/Molten/version.txt"))
 			{
-				StreamReader reader = new StreamReader(path + "/" + clientFolder + "/version.txt");
+				StreamReader reader = new StreamReader(path + "/Molten/version.txt");
 				string? myVersion = reader.ReadLine();
 				reader.Close();
 
